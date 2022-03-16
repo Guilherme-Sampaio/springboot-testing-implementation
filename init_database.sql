@@ -1,0 +1,3 @@
+CREATE DATABASE salesman_project;
+CREATE USER user_one WITH ENCRYPTED PASSWORD '123';
+GRANT ALL PRIVILEGES ON DATABASE salesman_project TO user_one;

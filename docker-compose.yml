@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+
+  postgres:
+    container_name: salesman_project
+    restart: always
+    ports:
+      - "5435:5432"
+    image: postgres
+    volumes:
+      - ./init_database.sql:/docker-entrypoint-initdb.d/init_database.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=postgres
