@@ -1,0 +1,58 @@
+package br.com.project.testing.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import br.com.project.testing.model.Salesman;
+import br.com.project.testing.repository.SalesmanRepository;
+import br.com.project.testing.service.SalesmanService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = "/salesman", consumes = "application/json", produces = "application/json")
+public class SalesmanController {
+
+  private final SalesmanRepository repository;
+  private final SalesmanService service;
+
+  @Autowired
+  public SalesmanController(SalesmanRepository repository, SalesmanService service) {
+    this.repository = repository;
+    this.service = service;
+  }
+
+  @GetMapping(path = "/{id}")
+  public Optional<Salesman> findById(@PathVariable("id") Long id) {
+    return repository.findById(id);
+  }
+
+  @GetMapping(path = "/all")
+  public List<Salesman> findAll() {
+    return repository.findAll();
+  }
+
+  @PostMapping
+  public Salesman save(@RequestBody Salesman salesman) {
+    return repository.save(salesman);
+  }
+
+  @PutMapping
+  public Salesman update(@RequestBody Salesman salesman) {
+    return repository.save(salesman);
+  }
+
+  @DeleteMapping(path = "/{id}")
+  public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+    repository.deleteById(id);
+    return ResponseEntity.noContent().build();
+  }
+}
