@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.project.testing.model.Sale;
+import br.com.project.testing.model.Salesman;
 import br.com.project.testing.repository.SaleRepository;
 import br.com.project.testing.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -38,6 +40,26 @@ public class SaleController {
   @GetMapping(path = "/all")
   public List<Sale> findAll() {
     return repository.findAll();
+  }
+
+  @GetMapping(path = "/biggest")
+  public Sale findBiggestSale() {
+    return repository.findBiggestSale();
+  }
+
+  @GetMapping(path = "/count/product/{product}")
+  public int countSalesByProduct(@PathVariable("product") String product) {
+    return repository.countSalesByProduct(product);
+  }
+
+  @GetMapping(path = "/count/salesman/{id}")
+  public int countSalesBySalesman(@PathVariable("id") Long salesmanId) throws Exception {
+    return service.countBySalesman(salesmanId);
+  }
+
+  @GetMapping(path = "/best_salesman")
+  public Salesman findWhoSoldMore(@PathVariable("id") Long salesmanId) {
+    return service.findWhoSoldMore();
   }
 
   @PostMapping

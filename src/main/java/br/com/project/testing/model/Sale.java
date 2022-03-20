@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,8 +23,9 @@ public class Sale implements Serializable {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sales_sequence")
   private  Long id;
 
-  @Column
-  private Long salesmanId;
+  @ManyToOne
+  @JoinColumn(name = "salesmen_id")
+  private Salesman salesman;
 
   @Column
   private String product;
@@ -37,7 +40,7 @@ public class Sale implements Serializable {
   public String toString() {
     return "Sale{" +
         "id=" + id +
-        ", salesmanId=" + salesmanId +
+        ", salesman=" + salesman +
         ", product='" + product + '\'' +
         ", quantity=" + quantity +
         ", value=" + value +
@@ -49,13 +52,13 @@ public class Sale implements Serializable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     final Sale sale = (Sale) o;
-    return id.equals(sale.id) && salesmanId.equals(sale.salesmanId) && product.equals(sale.product) && quantity.equals(
+    return id.equals(sale.id) && salesman.equals(sale.salesman) && product.equals(sale.product) && quantity.equals(
         sale.quantity) && value.equals(sale.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, salesmanId, product, quantity, value);
+    return Objects.hash(id, salesman, product, quantity, value);
   }
 
   public Long getId() {
@@ -66,12 +69,12 @@ public class Sale implements Serializable {
     this.id = id;
   }
 
-  public Long getSalesmanId() {
-    return salesmanId;
+  public Salesman getSalesman() {
+    return salesman;
   }
 
-  public void setSalesmanId(Long salesmanId) {
-    this.salesmanId = salesmanId;
+  public void setSalesman(Salesman salesman) {
+    this.salesman = salesman;
   }
 
   public String getProduct() {

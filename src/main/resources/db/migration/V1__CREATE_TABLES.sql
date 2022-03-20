@@ -11,7 +11,7 @@ CREATE TABLE sales (
                        salesmen_id numeric not null,
                        product text not null,
                        quantity numeric not null,
-                       value text not null,
+                       value numeric not null,
                        constraint fk_sales_salesmen foreign key (salesmen_id) references salesmen(id)
 );
 
