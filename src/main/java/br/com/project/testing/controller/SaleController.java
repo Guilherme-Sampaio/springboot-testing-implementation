@@ -43,7 +43,7 @@ public class SaleController {
   }
 
   @GetMapping(path = "/biggest")
-  public Sale findBiggestSale() {
+  public Double findBiggestSale() {
     return repository.findBiggestSale();
   }
 
@@ -58,7 +58,7 @@ public class SaleController {
   }
 
   @GetMapping(path = "/best_salesman")
-  public Salesman findWhoSoldMore(@PathVariable("id") Long salesmanId) {
+  public Salesman findWhoSoldMore() {
     return service.findWhoSoldMore();
   }
 

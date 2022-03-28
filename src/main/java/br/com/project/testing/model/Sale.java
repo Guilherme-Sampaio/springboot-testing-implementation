@@ -3,6 +3,10 @@ package br.com.project.testing.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +29,7 @@ public class Sale implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "salesmen_id")
+  @JsonIgnore
   private Salesman salesman;
 
   @Column

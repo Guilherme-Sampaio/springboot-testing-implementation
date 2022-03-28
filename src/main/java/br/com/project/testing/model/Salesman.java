@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +23,8 @@ public class Salesman implements Serializable {
 
   @Id
   @Column
-  @SequenceGenerator(name = "salesman_sequence", sequenceName = "salesman_sequence", allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salesman_sequence")
+  @SequenceGenerator(name = "salesmen_sequence", sequenceName = "salesmen_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salesmen_sequence")
   private Long id;
 
   @Column

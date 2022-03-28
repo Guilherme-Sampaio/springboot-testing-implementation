@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 public interface SalesmanRepository extends JpaRepository<Salesman, Long> {
 
   @Modifying
-  @Query(value = "update salesmen set commission = :newCommission where id = :salesmanId", nativeQuery = true)
-  void updateSalesmanCommission(@Param("newCommission") int newCommission, @Param("salesmanId") Long salesmanId);
+  @Query(value = "update Salesman set commission = :newCommission where id = :salesmanId")
+  int updateSalesmanCommission(@Param("newCommission") int newCommission, @Param("salesmanId") Long salesmanId);
+
+  @Query(value = "select salesmen.* from salesmen, sales "
+      + "where salesmen.id = sales.salesmen_id "
+      + "group by salesmen.id "
+      + "order by sum(sales.quantity * sales.value) desc limit 1 ", nativeQuery = true)
+  Salesman findWhoSoldMore();
 }

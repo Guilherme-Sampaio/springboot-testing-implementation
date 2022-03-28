@@ -14,18 +14,11 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 
   List<Sale> findBySalesman(Salesman salesman);
 
-  @Query(value = "select query.salesmen "
-      + "from (select salesmen, sum(sales.quantity * sales.value) as total from salesmen, sales "
-      + "where salesmen.id = sales.salesmen_id "
-      + "group by salesmen "
-      + "order by total desc limit 1) as query;", nativeQuery = true)
-  Salesman findWhoSoldMore();
-
   int countBySalesman(Salesman salesman);
 
   @Query("select count(quantity) from Sale where product = :product")
   int countSalesByProduct(@Param("product") String product);
 
   @Query("select max(quantity * value) from Sale")
-  Sale findBiggestSale();
+  Double findBiggestSale();
 }

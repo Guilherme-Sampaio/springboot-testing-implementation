@@ -22,12 +22,13 @@ public class SalesmanService {
     this.saleService = saleService;
   }
 
-  public void payEmployee(Long salesmanId) throws Exception {
+  public Double payEmployee(Long salesmanId) throws Exception {
     Salesman salesman = findAndValidateById(salesmanId);
     List<Sale> sales = saleService.findSalesBySalesman(salesman);
     Double totalSalary = calculateSalaryWithCommission(salesman.getSalary(), salesman.getCommission(), sales);
 
     System.out.println(salesman.getName() + " you'll receive $" + totalSalary + " this month.");
+    return totalSalary;
   }
 
   public Double calculateSalaryWithCommission(Double salary, int commission, List<Sale> sales) {
@@ -50,7 +51,7 @@ public class SalesmanService {
     }
   }
 
-  public void improveEmployeeCommission(Long salesmanId, int amountOfIncrease) throws Exception {
+  public int improveEmployeeCommission(Long salesmanId, int amountOfIncrease) throws Exception {
     Salesman salesman = findAndValidateById(salesmanId);
 
     if (Objects.isNull(amountOfIncrease)) {
@@ -60,6 +61,8 @@ public class SalesmanService {
     int newCommission = salesman.getCommission() + amountOfIncrease;
 
     repository.updateSalesmanCommission(newCommission, salesmanId);
+
+    return newCommission;
   }
 
   public Salesman findAndValidateById(Long salesmanId) throws Exception {

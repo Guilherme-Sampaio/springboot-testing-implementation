@@ -40,7 +40,7 @@ public class SaleService {
   }
 
   public Salesman findWhoSoldMore() {
-     Salesman salesman = repository.findWhoSoldMore();
+     Salesman salesman = salesmanRepository.findWhoSoldMore();
 
      System.out.println("The best salesman, who sold more is " + salesman.getName());
      return salesman;
